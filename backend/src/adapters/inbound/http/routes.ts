@@ -11,8 +11,9 @@ router.get('/', async (req, res) => {
   try {
     const routes = await prisma.routes.findMany();
     res.json(routes);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch routes' });
+  } catch (error: any) {
+    console.error('Error fetching routes:', error);
+    res.status(500).json({ error: 'Failed to fetch routes', details: error.message });
   }
 })
 

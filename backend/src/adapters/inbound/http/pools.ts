@@ -34,4 +34,28 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.get('/adjusted-cb', async (req, res) => {
+  const { poolId } = req.query;
+  if (!poolId) {
+    return res.status(400).json({ error: 'poolId is required' });
+  }
+
+  try {
+    const poolMembers = await prisma.pool_members.findMany({
+      where: { pool_id: Number(poolId) },
+    });
+
+    if (poolMembers.length === 0) {
+      return res.status(404).json({ error: 'Pool not found' });
+    }
+
+    // Calculate total adjusted CB (sum of cb_after)
+    const adjustedCB = poolMembers.reduce((sum, member) => sum + member.cb_after, 0);
+
+    res.json({ adjustedCB, members: poolMembers });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch adjusted CB' });
+  }
+});
+
 export default router;
