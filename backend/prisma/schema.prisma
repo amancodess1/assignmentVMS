@@ -25,6 +25,8 @@ model ship_compliance {
   ship_id String
   year   Int
   cb_gco2eq Float
+
+  @@unique([ship_id, year], name: "ship_id_year_unique")
 }
 
 model bank_entries {
