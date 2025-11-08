@@ -1,0 +1,28 @@
+# Node
+node_modules/
+
+# Build
+dist/
+
+# Env
+.env
+.env.*
+
+# Prisma
+node_modules/.prisma
+prisma/migrations/
+prisma/dev.db
+
+# Logs
+npm-debug.log*
+
+# OS / Editor
+.DS_Store
+.vscode/
+
+# Coverage
+coverage/
+
+# Lockfiles
+package-lock.json
+pnpm-lock.yaml
